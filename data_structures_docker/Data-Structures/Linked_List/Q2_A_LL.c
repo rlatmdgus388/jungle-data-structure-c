@@ -100,10 +100,41 @@ int main()
 }
 
 //////////////////////////////////////////////////////////////////////////////////
-
+// 두 번째 연결 리스트의 노드들을 첫 번째 연결 리스트에 번갈아 가며 삽입하는 함수
+// 첫 번째 리스트에 번갈아 삽입할 수 있는 위치가 존재할 때만 두 번째 리스트의 노드를 삽입
+// list1 = [1, 2, 3]
+// list2 = [4, 5, 6, 7]
+// ----------------------
+// list1 = [1, 4, 2, 5, 3, 6]
+// list2 = [7]
 void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 {
     /* add your code here */
+
+	// 원소가 없을 경우
+	// cur == None일때까지 반복
+	// cur->next != None이면 삽입
+	ListNode *cur1, *cur2, *tmp1, *tmp2;
+
+	cur1 = ll1->head;
+	cur2 = ll2->head;
+
+	while (cur1 != NULL)
+	{
+		if (cur2 != NULL)
+		{
+			tmp1 = cur1->next;
+			tmp2 = cur2->next;
+			cur1->next = malloc(sizeof(ListNode));
+			cur1->next->item = cur2->item;
+			cur1->next->next = tmp1;
+			free(cur2);
+
+			cur1 = tmp1;
+			cur2 = tmp2;
+			ll2->head = cur2;
+		}
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -140,7 +171,7 @@ void removeAllItems(LinkedList *ll)
 	ll->size = 0;
 }
 
-
+// ListNode *를 반환하는 함수. ListNode *는 ListNode의 구조체 포인터를 의미
 ListNode *findNode(LinkedList *ll, int index){
 
 	ListNode *temp;
