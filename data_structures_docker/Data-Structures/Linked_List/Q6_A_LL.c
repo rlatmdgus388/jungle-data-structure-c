@@ -89,6 +89,64 @@ int main()
 int moveMaxToFront(ListNode **ptrHead)
 {
     /* add your code here */
+
+	// 연결 리스트를 최대 한 번만 순회하여 가장 큰 값을 가진 노드를 찾아서 리스트의 맨 앞으로 이동시킨다.
+	// 30, 20, 40, 70, 50
+	// 70, 30, 20, 40, 50
+	// **ptrhead: ll->head의 주소를 담은 이중포인터 변수. ll->head는 head노드의 주소를 가지고 있음.
+	// *ptrhead = head
+	// head에는 head가 가리키는 주소가 담겨있음.
+	ListNode *first_head, *cur, *pre, *tmp1, *tmp2;
+
+	int max = 0;
+	int index = 0;
+	int max_index = 0;
+
+	first_head = *ptrHead;  // 처음 head 노드
+	pre = NULL;
+	cur = *ptrHead;
+
+	// 끝까지 순회하면서 max와 cur를 비교하며 max 업데이트, index ++
+	while(cur != NULL)
+	{	
+		if (max < cur->item)
+		{
+			max = cur->item;
+			max_index = index;
+		}
+		cur = cur->next;
+		index ++;
+	}
+
+	// 1. max 노드의 전노드의 next 수정
+	// 2. max 노드의 next 수정
+	// 3. head를 max로 수정
+	// [1, 2, 3, 4]
+	index = 0;
+	cur = first_head;
+
+
+	while (index < max_index)
+	{
+		if (max_index == 0)
+		{
+			break;
+		}
+		else
+		{
+			pre = cur;
+			cur = cur->next;
+			index ++;
+		}
+
+	}
+
+	tmp1 = cur->next;
+	pre->next = tmp1;
+	*ptrHead = cur;
+	cur->next = first_head;
+
+	return 0;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
