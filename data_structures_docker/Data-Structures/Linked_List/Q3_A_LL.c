@@ -96,14 +96,14 @@ void moveOddItemsToBack(LinkedList *ll)
     int index = 0;
     int original_size;
 
-    if (ll == NULL || (ll)->head == NULL)
+    if (ll == NULL || ll->head == NULL)
         return;
 
-    original_size = (ll)->size;
+    original_size = ll->size;
 
     pre = NULL;
-    cur = (ll)->head;
-    last_node = findNode(ll, (ll)->size - 1);
+    cur = ll->head;
+    last_node = findNode(ll, ll->size - 1);
 
     while (index < original_size)
     {
@@ -112,8 +112,8 @@ void moveOddItemsToBack(LinkedList *ll)
             tmp = cur->next;
 
             /* 현재 노드를 기존 자리에서 제거 */
-            if (cur == (ll)->head)
-                (ll)->head = tmp;
+            if (cur == ll->head)
+                ll->head = tmp;
             else
                 pre->next = tmp;
 
