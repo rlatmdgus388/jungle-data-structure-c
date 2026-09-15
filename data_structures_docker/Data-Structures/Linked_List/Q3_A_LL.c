@@ -8,6 +8,7 @@ Purpose: Implementing the required functions for Question 3 */
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -84,9 +85,53 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
+// 연결 리스트에 있는 모든 홀수 정수를 리스트의 맨 뒤로 이동시키는 함수
+// 전부 짝수이거나 전부 홀수면 그대로
+// 예시)
+// 2, 3, 4, 7, 15, 18
+// 2, 4, 18, 3, 7, 15
 void moveOddItemsToBack(LinkedList *ll)
 {
-	/* add your code here */
+    ListNode *pre, *cur, *tmp, *last_node;
+    int index = 0;
+    int original_size;
+
+    if (ll == NULL || (ll)->head == NULL)
+        return;
+
+    original_size = (ll)->size;
+
+    pre = NULL;
+    cur = (ll)->head;
+    last_node = findNode(ll, (ll)->size - 1);
+
+    while (index < original_size)
+    {
+        if (cur->item % 2 != 0)
+        {
+            tmp = cur->next;
+
+            /* 현재 노드를 기존 자리에서 제거 */
+            if (cur == (ll)->head)
+                (ll)->head = tmp;
+            else
+                pre->next = tmp;
+
+            /* 현재 노드를 맨 뒤에 연결 */
+            last_node->next = cur;
+            cur->next = NULL;
+            last_node = cur;
+
+            cur = tmp;
+        }
+        else
+        {
+            pre = cur;
+            cur = cur->next;
+        }
+
+        index++;
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
