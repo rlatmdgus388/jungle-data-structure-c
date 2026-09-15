@@ -103,6 +103,48 @@ int main()
 void frontBackSplitLinkedList(LinkedList *ll, LinkedList *resultFrontList, LinkedList *resultBackList)
 {
 	/* add your code here */
+
+	// 하나의 단일 연결 리스트(singly linked list)를 앞부분(front half)과 뒷부분(back half), 두 개의 리스트로 분할
+	// 만약 원소의 개수가 홀수라면, 하나 더 많은 원소를 앞쪽 리스트에 넣는다.
+	// 기본 원본 배열 ll을 반으로 쪼재고 resultFrontList, resultBackList 로 연결
+	
+	ListNode *cur;
+	// mid로 반으로 쪼개기.
+	// 짝수일 때는 그냥 나누기
+	// 홀수일 때는 size / 2 + 1
+	int size = ll->size;
+	int index = 0;
+	int mid;
+
+	cur = ll->head;
+
+	if (ll == NULL || ll->head == NULL)
+		return;
+
+	if (size % 2 == 0)
+		mid = size / 2;
+	else
+		mid = size / 2 + 1;
+	
+	// 어차피 다 노드끼리 연결돼있기 때문에 head부분, 마지막 부분만 바꿔주면 된다.
+	// 1. index == mid - 1일때까지 순화
+	// 	-> mid일 때 node->next == NULL;
+	// 2. index  mid 일때는 back의 head를 mid자리 원소로 설정
+	resultFrontList->head = ll->head;
+
+
+	// mid = 2
+	// arr = [1, 2, 3, 4]
+
+	while (index < mid - 1)
+	{	
+		cur = cur->next;
+		index ++;
+	}
+	// cur->next는 포인터 변수. 따라서 다음 노드를 가리키는 노드의 주소를 가지고 있음.
+	// 따라서 nex = NULL로 하는건 다음 노드에 영향이 있는게 아니라 포인터 변수 next에 들어있는 메모리 주소를 NULL로 바꾸는 것.
+	resultBackList->head = cur->next;
+	cur->next = NULL;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
