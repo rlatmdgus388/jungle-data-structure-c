@@ -103,7 +103,34 @@ int main()
 
 int isStackPairwiseConsecutive(Stack *s)
 {
-  /* add your code here */
+	/* add your code here */
+
+	// 스택 안의 숫자들이 쌍을 이루어 연속적(pairwise consecutive)인지 여부를 검사하는 함수
+	// 단, 스택에 정수를 추가하거나 제거할 때는 오직 push()와 pop() 함수만 사용
+	// 예시 1: 스택 데이터가 (16, 15, 11, 10, 5, 4) 인 경우
+	// (16, 15), (11, 10), (5, 4) -> 각 쌍의 두 수 차이가 모두 1로 연속하므로 pairwise consecutive (1 반환)
+	// 예시 2: 스택 데이터가 (16, 15, 11, 10, 5, 1) 인 경우
+	// (16, 15), (11, 10), (5, 1)
+	// 마지막 쌍 (5, 1)의 차이가 1이 아니므로 not pairwise consecutive (0 반환)
+
+	// cur, after 사용
+	// cur, after의 차가 -1 or 1이 아닌 경우 0반환, 맞는 경우 1반환
+	// cur, after -> cur = after->next. after = cur->next
+  
+	int cur;
+	int after;
+
+	while (isEmptyStack(s) == 0)
+	{	
+		cur = pop(s);
+		after = pop(s);
+
+		if ((cur - after == 1) || (cur - after == -1))
+			continue;
+		else
+			return 0;
+	}
+	return 1;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
