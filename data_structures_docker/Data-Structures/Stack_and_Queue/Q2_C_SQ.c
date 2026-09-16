@@ -114,11 +114,48 @@ int main()
 void createStackFromLinkedList(LinkedList *ll, Stack *s)
 {
     /* add your code here */
+
+	// 연결 리스트(linked list)에 저장된 모든 정수를 push하여 (연결 리스트 기반) 스택을 생성하는 C 언어 함수를 작성
+	// 연결 리스트의 첫 번째 노드가 가장 먼저 push되고, 그다음 두 번째 노드가 push되는 방식(순차적 push)으로 진행됨
+	// 스택이 비어있지 않다면 작업을 시작하기 전에 먼저 스택을 비워야 함(empty)을 유의
+	if (isEmptyStack(s) != 1)
+		removeAllItems(&(s->ll));
+
+	ListNode *cur, *next;
+
+	cur = ll->head;
+
+	while (cur != NULL)
+	{
+		next = cur->next;
+		push(s, cur->item);
+		cur = next;
+	}
 }
 
 void removeEvenValues(Stack *s)
 {
 	/* add your code here */
+
+	ListNode *cur, *next;
+
+	int index = 0;
+	cur = s->ll.head;
+	
+	while (cur != NULL)
+	{
+		if (cur->item % 2 == 0)
+		{
+			next = cur->next;
+			removeNode(&(s->ll), index);
+			cur = next;
+		}
+		else
+		{
+			cur = cur->next;
+			index ++;
+		}
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////////////
