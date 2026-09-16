@@ -114,14 +114,57 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
+// ll은 LinkedList 타입의 구조체를 가리키는 포인터, q는 Queue 타입의 구조체를 가리키는 포인터
 void createQueueFromLinkedList(LinkedList *ll, Queue *q)
 {
 	/* add your code here */
+
+	// 큐 자체가 q->ll이라는 연결리스트로 구현돼있음.
+	// ll이랑 별개임
+	// 큐가 비어있지않은 경우 큐를 비워야함
+	ListNode *cur;
+
+	if (isEmptyQueue(q) == 0)
+	{	
+		return;
+	}
+	cur = ll->head;
+	while (cur != NULL)
+	{
+		enqueue(q, cur->item);
+		cur = cur->next;
+	}
 }
 
 void removeOddValues(Queue *q)
 {
 	/* add your code here */
+	ListNode *cur, *next;
+
+	if (isEmptyQueue(q) == 1)
+	{
+		return;
+	}
+
+	int index = 0;
+	cur = q->ll.head;
+
+	while (cur != NULL)
+	{	
+		if (cur->item % 2 != 0)
+		{	
+			next = cur->next;
+			removeNode(&(q->ll), index);
+			cur = next;
+			// 삭제하면 index를 ++하면 안됨. 
+			// index ++;
+		}
+		else
+		{	
+			cur = cur->next;
+			index ++;
+		}
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////////////
